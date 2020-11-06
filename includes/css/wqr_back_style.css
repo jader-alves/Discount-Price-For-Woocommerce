@@ -1,0 +1,35 @@
+.wqrrules_container {
+	width: 97%;
+    margin: 15px 15px;
+}
+.wqrrules_container table.wqrrules_table {
+	width: 100%;
+    border: 1px solid #777;
+}
+.wqrrules_container table.wqrrules_table th, .wqrrules_container table.wqrrules_table td {
+    padding: 5px;
+    text-align: left;
+}
+.wqrrules_container table.wqrrules_table th {
+    border-bottom: 1px solid #777;
+}
+.wqrrules_container table.wqrrules_table td p {
+    padding: 0px;
+    margin: 0px;
+}
+.wqrrules_container a.add_more {
+    background-color: #ccc;
+    margin-top: 10px;
+    display: inline-block;
+    width: 10%;
+    padding: 10px;
+    text-align: center;
+    color: #000;
+    font-weight: 700;
+}
+.wqrrules_container p {
+    font-size: 14px!important;
+    margin-left: 0px!important;
+    padding-left: 0px!important;
+    font-weight: 600;
+}

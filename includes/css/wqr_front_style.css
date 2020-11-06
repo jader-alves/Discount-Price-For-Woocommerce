@@ -1,0 +1,10 @@
+table.wqr_qtytable {
+    border: 1px solid #ccc;
+}
+table.wqr_qtytable th, table.wqr_qtytable td {
+    padding: 5px;
+    text-align: left;
+}
+table.wqr_qtytable th {
+    border-bottom: 1px solid #777;
+}
