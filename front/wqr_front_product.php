@@ -175,10 +175,10 @@ if (!class_exists('DPFW_front')) {
 
         function DPFW_discount_text($dtype, $discnt) {
             if($dtype == "fixed") {
-                $text = "(".wc_price($discnt)." Discount)";
+                $text = "(".wc_price($discnt)." de desconto)";
             }
             if($dtype == "percentage") {
-                $text = "(".$discnt." % Discount)";
+                $text = "(".$discnt." % de desconto)";
             }
             return $text;
         }
