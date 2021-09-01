@@ -61,7 +61,7 @@ if (!class_exists('DPFW_menu')) {
                                                             <option value="fixed">Fixed</option>
                                                             <option value="percentage">Percentage</option>
                                                         </select>
-                                                        <input type="number" step="0.1" name="new_wqrdiscount[]">
+                                                        <input type="number" step="0.01" name="new_wqrdiscount[]">
                                                     </td>
                                                     <td>
                                                         <?php $mam_roles = get_editable_roles(); ?>
@@ -93,7 +93,7 @@ if (!class_exists('DPFW_menu')) {
                                                                 <option value="fixed" <?php if($wqrdiscount_type[$key] == "fixed"){ echo "selected"; } ?> >Fixed</option>
                                                                 <option value="percentage" <?php if($wqrdiscount_type[$key] == "percentage"){ echo "selected"; } ?>>Percentage</option>
                                                             </select>
-                                                            <input type="number" name="new_wqrdiscount[]" step="0.1" value="<?php echo $wqrdiscount[$key]; ?>">
+                                                            <input type="number" name="new_wqrdiscount[]" step="0.01" value="<?php echo $wqrdiscount[$key]; ?>">
                                                         </td>
                                                         <td>
                                                             <?php $mam_roles = get_editable_roles(); ?>
@@ -197,7 +197,7 @@ if (!class_exists('DPFW_menu')) {
                                     echo "<option value='".$mam_roles_key."'>".$mam_roles_value['name']."</option>";
                                 }
                         ?>";
-                        jQuery(".wqrrules_table tbody").append('<tr><td><input type="number" name="new_wqrmin[]" min="1"></td><td><input type="number" name="new_wqrmax[]" min="1"></td><td><select name="new_wqrdiscount_type[]"><option value="fixed">Fixed</option><option value="percentage">Percentage</option></select><input type="number" step="0.1" name="new_wqrdiscount[]"></td><td><select name="new_wqr_roles[][]" id="wqr_roles" multiple>'+html+'</select></td><td><p class="wqrremove">Remove</label></td></tr>');
+                        jQuery(".wqrrules_table tbody").append('<tr><td><input type="number" name="new_wqrmin[]" min="1"></td><td><input type="number" name="new_wqrmax[]" min="1"></td><td><select name="new_wqrdiscount_type[]"><option value="fixed">Fixed</option><option value="percentage">Percentage</option></select><input type="number" step="0.01" name="new_wqrdiscount[]"></td><td><select name="new_wqr_roles[][]" id="wqr_roles" multiple>'+html+'</select></td><td><p class="wqrremove">Remove</label></td></tr>');
                            
                     });
                 });
