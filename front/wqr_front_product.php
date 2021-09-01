@@ -99,7 +99,7 @@ if (!class_exists('DPFW_front')) {
 
         function DPFW_count_price($dtype, $discnt, $price) {
             if($dtype == "fixed") {
-                $prices = (int)$price - (int)$discnt;
+                $prices = $price - $discnt;
             }
             if($dtype == "percentage") {
                 $prices = $price - ($price * $discnt / 100);
@@ -156,8 +156,8 @@ if (!class_exists('DPFW_front')) {
                 echo "<table class='wqr_qtytable'>"; 
                     echo "<thead>";
                         echo "<tr>";
-                            echo "<th>Quantity</th>";
-                            echo "<th>Price</th>";
+                            echo "<th>Quantidade</th>";
+                            echo "<th>Preço</th>";
                         echo "</tr>";
                     echo "</thead>";
                     echo "<tbody>";
