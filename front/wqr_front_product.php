@@ -40,8 +40,8 @@ if (!class_exists('DPFW_front')) {
                             
                             $min  = $values;
                             $max  = $maxqty[$keys];
-                            $role = $roles[$keys];
-                            if (is_array($role) && in_array($user_roles, $role)) {
+                            $role = $roles[$keys];                         
+                            if ($role==="" || in_array($user_roles, $role)) {
                                 if($min <= $qty && $max >= $qty){
                                     $dtypea  = $dtype[$keys];
                                     $discnta = $discnt[$keys];
@@ -51,7 +51,7 @@ if (!class_exists('DPFW_front')) {
                                     $value['data']->price = $new_price;
                                     $value['data']->set_price($new_price); 
                                 }
-                            }
+                         }
                         }
                     } 
                 }else{
