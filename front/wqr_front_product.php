@@ -41,7 +41,7 @@ if (!class_exists('DPFW_front')) {
                             $min  = $values;
                             $max  = $maxqty[$keys];
                             $role = $roles[$keys];
-                            if (in_array($user_roles, $role)) {
+                            if (is_array($role) && in_array($user_roles, $role)) {
                                 if($min <= $qty && $max >= $qty){
                                     $dtypea  = $dtype[$keys];
                                     $discnta = $discnt[$keys];
