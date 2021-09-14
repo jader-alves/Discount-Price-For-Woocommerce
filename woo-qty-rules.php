@@ -4,6 +4,7 @@
 * Description: This plugin allows create qty rules for products.
 * Version: 1.0
 * Copyright: 2019 
+* Author: vp956009 Customizado por Jader Alves
 */
 
 // Exit if accessed directly
