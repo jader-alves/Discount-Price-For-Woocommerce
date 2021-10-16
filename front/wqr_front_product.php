@@ -18,6 +18,7 @@ if (!class_exists('DPFW_front')) {
 
             global $post, $woocommerce, $current_user;
             $user_roles = $current_user->roles[0];
+            $cont=0;
 
             foreach ( $cart_object->cart_contents as $key => $value ) {
 
@@ -25,14 +26,16 @@ if (!class_exists('DPFW_front')) {
                 $product = wc_get_product( $product_id );
                 $product_vari = wc_get_product($value['variation_id']);
                
-                $qty = $value['quantity'];
-                
+                $qty = $value['quantity'];                
 
                 $minqty = get_post_meta($product_id,'wqrmin',true);
                 $maxqty = get_post_meta($product_id,'wqrmax',true);
                 $dtype  = get_post_meta($product_id,'wqrdiscount_type',true);
                 $discnt = get_post_meta($product_id,'wqrdiscount',true);
                 $roles  = get_post_meta($product_id,'wqr_roles',true);
+                
+                
+
 
                 if($value['variation_id'] != 0){
                     if(!empty($minqty)){
@@ -42,12 +45,23 @@ if (!class_exists('DPFW_front')) {
                             $max  = $maxqty[$keys];
                             $role = $roles[$keys];                         
                             if ($role==="" || in_array($user_roles, $role)) {
-                                if($min <= $qty && $max >= $qty){
+
+                                if ($cont==0 && $qty<$min){
+                                    $price  = $product_vari->get_price();
+                                    $new_price = $this->DPFW_count_price_lf($product, $price);
+                                    $cont++;
+                                    $value['data']->price = $new_price;
+                                    $value['data']->set_price($new_price); 
+                                }
+
+                                else if($min <= $qty && $max >= $qty){
                                     $dtypea  = $dtype[$keys];
                                     $discnta = $discnt[$keys];
 
                                     $price  = $product_vari->get_price();
                                     $new_price = $this->DPFW_count_price($dtypea, $discnta, $price);
+                                    $new_price = $this->DPFW_count_price_lf($product, $new_price);
+                                    $cont++;
                                     $value['data']->price = $new_price;
                                     $value['data']->set_price($new_price); 
                                 }
@@ -60,28 +74,47 @@ if (!class_exists('DPFW_front')) {
                             
                             $min  = $values;
                             $max  = $maxqty[$keys];
-                            $role = $roles[$keys];
+                            $role = $roles[$keys];     
                             
 
                             if(empty($roles) || empty($role)) {
-                                if($min <= $qty && $max >= $qty) {
+
+                                if ($cont==0 && $qty<$min){
+                                    $price  = $product->get_price();
+                                    $new_price = $this->DPFW_count_price_lf($product,  $price);
+                                    $cont++;
+                                    $value['data']->price = $new_price;
+                                    $value['data']->set_price($new_price); 
+                                }
+
+                                else if($min <= $qty && $max >= $qty) {
                                     $dtypea  = $dtype[$keys];
                                     $discnta = $discnt[$keys];
-                                    $price  = $product->get_price();
-                                    
+                                    $price  = $product->get_price();                                    
                                     $new_price = $this->DPFW_count_price($dtypea, $discnta, $price);
+                                    $new_price = $this->DPFW_count_price_lf($product, $new_price);
+                                    $cont++;
                                     $value['data']->price = $new_price;
                                     $value['data']->set_price($new_price); 
                                 }
                             }
                             else if (!empty($role)) {
                                 if (in_array($user_roles, $role)) {
-                                    if($min <= $qty && $max >= $qty) {
+
+                                    if ($cont==0 && $qty<$min){
+                                        $price  = $product->get_price();
+                                        $new_price = $this->DPFW_count_price_lf($product, $price);
+                                        $cont++;
+                                        $value['data']->price = $new_price;
+                                        $value['data']->set_price($new_price); 
+                                    }
+                                    else if($min <= $qty && $max >= $qty) {
                                         $dtypea  = $dtype[$keys];
                                         $discnta = $discnt[$keys];
-                                        $price  = $product->get_price();
-                                        
-                                        $new_price = $this->DPFW_count_price($dtypea, $discnta, $price);
+                                        $price  = $product->get_price();                                        
+                                        $new_price = $this->DPFW_count_price($dtypea, $discnta, $price);                                        
+                                        $new_price = $this->DPFW_count_price_lf($product, $new_price);
+                                        $cont++;
                                         $value['data']->price = $new_price;
                                         $value['data']->set_price($new_price); 
                                     }
@@ -91,7 +124,7 @@ if (!class_exists('DPFW_front')) {
 
                             } 
                         }
-                    }  
+                    } 
                 }               
             }    
         }
@@ -107,6 +140,14 @@ if (!class_exists('DPFW_front')) {
             return $prices;   
         }
 
+        function DPFW_count_price_lf($product, $price) {
+            
+            $comissao = get_price_multiplier($product);    
+            $preco_final = calcula_preco_final($price, $comissao);            
+            if ($preco_final)
+                return $preco_final;            
+            return $price;   
+        }
 
         function DPFW_qtytable(){
             global $product, $current_user;
@@ -125,8 +166,11 @@ if (!class_exists('DPFW_front')) {
                     
                     $dtypea  = $dtype[$keys];
                     $discnta = $discnt[$keys];
-                    $price  = $product->get_price();
+                    //$price  = get_post_meta( get_the_ID(), '_regular_price', true);
+                    $price = $product->get_price();
                     $new_price = $this->DPFW_count_price($dtypea, $discnta, $price);
+                    $new_price = $this->DPFW_count_price_lf($product, $new_price);
+
                     $role = $roles[$keys];
                     
                     if(empty($roles) || empty($role)) {
